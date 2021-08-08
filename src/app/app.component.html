@@ -1,0 +1,40 @@
+<div class="container">
+
+  <!-- input with search -->
+  <div class="mt-5">
+    <div class="d-flex">
+      <input name="name" id="name" class="form-control" placeholder="Enter name..." [(ngModel)]="name">
+      <button class="btn btn-primary ml-3" (click)="search()">Search</button>
+    </div>
+  </div>
+
+  <!-- Showing response data -->
+  <div class="mt-5">
+
+    <!-- Showing respose if exists -->
+    <ng-container *ngIf="response && response.country && response.country.length > 0">
+      <h6 class="mb-3">Name: {{response.name}}</h6>
+      <table>
+        <tr>
+          <th>No.</th>
+          <th>Country</th>
+          <th>Probability</th>
+        </tr>
+        <tr *ngFor="let item of response.country;let i=index">
+          <ng-container *ngIf="i<2">
+            <td>{{i+1}}</td>
+            <td>{{item.country_id}}</td>
+            <td>{{item.probability.toFixed(5)}}</td>
+          </ng-container>
+        </tr>
+      </table>
+    </ng-container>
+
+    <!-- Showing respose if not exists -->
+    <ng-container *ngIf="response && response.country && response.country.length == 0 && name != '' ">
+      <h6>No results found with {{response.name}}</h6>
+    </ng-container>
+  </div>
+
+
+</div>
